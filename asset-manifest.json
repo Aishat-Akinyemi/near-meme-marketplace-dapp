@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/near-meme-marketplace-dapp/static/css/main.a174681c.chunk.css",
+    "main.js": "/near-meme-marketplace-dapp/static/js/main.472166ed.chunk.js",
+    "main.js.map": "/near-meme-marketplace-dapp/static/js/main.472166ed.chunk.js.map",
+    "runtime-main.js": "/near-meme-marketplace-dapp/static/js/runtime-main.036a610c.js",
+    "runtime-main.js.map": "/near-meme-marketplace-dapp/static/js/runtime-main.036a610c.js.map",
+    "static/css/2.c3812bb4.chunk.css": "/near-meme-marketplace-dapp/static/css/2.c3812bb4.chunk.css",
+    "static/js/2.e468081d.chunk.js": "/near-meme-marketplace-dapp/static/js/2.e468081d.chunk.js",
+    "static/js/2.e468081d.chunk.js.map": "/near-meme-marketplace-dapp/static/js/2.e468081d.chunk.js.map",
+    "static/js/3.2b7458b3.chunk.js": "/near-meme-marketplace-dapp/static/js/3.2b7458b3.chunk.js",
+    "static/js/3.2b7458b3.chunk.js.map": "/near-meme-marketplace-dapp/static/js/3.2b7458b3.chunk.js.map",
+    "index.html": "/near-meme-marketplace-dapp/index.html",
+    "static/css/2.c3812bb4.chunk.css.map": "/near-meme-marketplace-dapp/static/css/2.c3812bb4.chunk.css.map",
+    "static/css/main.a174681c.chunk.css.map": "/near-meme-marketplace-dapp/static/css/main.a174681c.chunk.css.map",
+    "static/js/2.e468081d.chunk.js.LICENSE.txt": "/near-meme-marketplace-dapp/static/js/2.e468081d.chunk.js.LICENSE.txt",
+    "static/media/bootstrap-icons.css": "/near-meme-marketplace-dapp/static/media/bootstrap-icons.ea6f3dfe.woff",
+    "static/media/dgm.97983f86.jpg": "/near-meme-marketplace-dapp/static/media/dgm.97983f86.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.036a610c.js",
+    "static/css/2.c3812bb4.chunk.css",
+    "static/js/2.e468081d.chunk.js",
+    "static/css/main.a174681c.chunk.css",
+    "static/js/main.472166ed.chunk.js"
+  ]
+}
