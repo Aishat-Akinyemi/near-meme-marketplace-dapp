@@ -7,7 +7,7 @@ const Cover = ({ name, login, coverImg }) => {
     return (
       <div
         className="d-flex justify-content-center flex-column text-center "
-        style={{ background: "#000", minHeight: "100vh" }}
+        style={{ background: "#eb690c", minHeight: "100vh" }}
       >
         <div className="mt-auto text-light mb-5">
           <div
@@ -17,13 +17,15 @@ const Cover = ({ name, login, coverImg }) => {
             <img src={coverImg} alt="" />
           </div>
           <h1>{name}</h1>
+          <p style={{ fontSize: "x-large", color: "aquamarine"}}
+          >Your one stop shop for Trending Memes</p>
           <p>Please connect your wallet to continue.</p>
           <Button
             onClick={login}
             variant="outline-light"
             className="rounded-pill px-3 mt-3"
           >
-            Connect Wallet
+            Connect your Wallet To Continue
           </Button>
         </div>
         <p className="mt-auto text-secondary">Powered by NEAR</p>
