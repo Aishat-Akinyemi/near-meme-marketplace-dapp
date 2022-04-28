@@ -73,7 +73,7 @@ const Products = () => {
             <h1 className="fs-4 fw-bold mb-0">Street Food</h1>
             <AddProduct save={addProduct} />
           </div>
-          {/* <Row xs={1} sm={2} lg={3} className="g-3  mb-5 g-xl-4 g-xxl-5">
+          <Row xs={1} sm={2} lg={3} className="g-3  mb-5 g-xl-4 g-xxl-5">
             {products.map((_product) => (
               <Product
                 product={{
@@ -82,7 +82,7 @@ const Products = () => {
                 buy={buy}
               />
             ))}
-          </Row> */}
+          </Row>
         </>
       ) : (
         <Loader />
