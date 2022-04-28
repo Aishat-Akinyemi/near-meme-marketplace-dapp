@@ -7,7 +7,7 @@ The app is hosted here: [https://aishat-akinyemi.github.io/near-meme-marketplace
 The marketplace metadata is stored on IPFS, and price, owner and sales data stored on the NEAR blockchain.
 
 
-This MemeMarketplace app was created as my submission to NEAR 101 Challenge on Dacade. [Join dacade](https://dacade.org/signup?invite=aishatakinyemi) to not just learn how to build blockchain solutions, but earn while you do so. 
+This MemeMarketplace dapp was created as my submission to NEAR 101 Challenge on Dacade. [Join dacade](https://dacade.org/signup?invite=aishatakinyemi) to not just learn how to build blockchain solutions, but earn while you do so. 
 
 [Join Dacade with my referral code](https://dacade.org/signup?invite=aishatakinyemi).
 
