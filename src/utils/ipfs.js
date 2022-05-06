@@ -1,38 +1,37 @@
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import axios from "axios";
-import { createProduct } from "./marketplace";
+import { createMeme } from "./marketplace";
 
 export const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
-export async function createProductRecordOnIPFS(product) {
+export async function createMemeRecordOnIPFS(meme) {
     const data =  JSON.stringify({
-      name: product.name,
-      image: product.image,
-      description: product.description,
-      location: product.location
+      name: meme.name,
+      image: meme.image,
+      description: meme.description,
+      location: meme.location
     });
     try {
-      // save product metadata to IPFS
+      // save meme metadata to IPFS
       const added = await client.add(data);
       // IPFS url for uploaded metadata
       const url = `https://ipfs.io/ipfs/${added.path}`;
   
-      let productData = {
-        price: product.price,
+      let memeData = {
+        price: meme.price,
         metadata: url
       };
-      //now add the product, including the IPFS url to the blockchain
-      let saveProduct = createProduct(productData);   
+      //now add the meme, including the IPFS url to the blockchain
+      let saveMeme = createMeme(memeData);   
   
     } catch(error){
-      console.log("Error saving products: ", error);
     }
 }
 
 
 
-// get the metedata for a product from IPFS
-export const fetchProdMeta = async (ipfsUrl) => {
+// get the metedata for a meme from IPFS
+export const fetchMemeMeta = async (ipfsUrl) => {
     try {
         if (!ipfsUrl) return null;
         const meta = await axios.get(ipfsUrl);

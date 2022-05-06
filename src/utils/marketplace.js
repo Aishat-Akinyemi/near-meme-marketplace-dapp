@@ -1,44 +1,56 @@
 import { v4 as uuid4 } from "uuid";
 import { parseNearAmount } from "near-api-js/lib/utils/format";
-import {fetchProdMeta} from "./ipfs"
+import {fetchMemeMeta} from "./ipfs"
 
 const GAS = 100000000000000;
 
 
 
-export async function createProduct(product) {
-  product.id = uuid4();
-  product.price = parseNearAmount(product.price + "");
-  return await window.contract.setProduct({ product });
+export async function createMeme(meme) {
+  meme.id = uuid4();
+  meme.price = parseNearAmount(meme.price + "");
+  return await window.contract.setMeme({ meme });
 }
 
-export async function getProducts() {
+export async function getMemes() {
   try{
-    const products = await window.contract.getProducts();
-    const productList = [];    
-    products.forEach(prod => {
-      const prodItem = new Promise( async (resolve) => {
-        const meta = await fetchProdMeta(prod.metadata);
+    const memes = await window.contract.getMemes();
+    const memeList = [];    
+    memes.forEach(meme => {
+      const memeItem = new Promise( async (resolve) => {
+        const meta = await fetchMemeMeta(meme.metadata);      
+        //call contract method to get votes count  
+        const vote= await window.contract.getMemeVotes({ memeId: meme.id});
         resolve({
-          id: prod.id,
-          price: prod.price,
-          owner: prod.owner,
-          sold: prod.sold,
+          id: meme.id,
+          price: meme.price,
+          owner: meme.owner,
+          sold: meme.sold,          
+          downvotes_count: vote[0],
+          upvotes_count: vote[1],
           name: meta.data.name,
           image: meta.data.image,
           description: meta.data.description,
           location: meta.data.location
         });  
     });
-    productList.push(prodItem);
+    memeList.push(memeItem);
   });
-  console.log(productList);
-    return Promise.all(productList);
+    return Promise.all(memeList);
   } catch(e){
     console.log({e});
   }   
 }
 
-export async function buyProduct({ id, price }) {
-  await window.contract.buyProduct({ productId: id }, GAS, price);
+export async function buyMeme({ id, price }) {
+  await window.contract.buyMeme({ memeId: id }, GAS, price);
+}
+
+export async function voteMeme({id, voteType}){
+   const isSuccess = await window.contract.voteMeme({memeId: id, voteType: voteType}, GAS);
+   if (isSuccess){
+      return Promise.resolve(isSuccess);
+   } else{
+     return Promise.reject();
+   }
 }

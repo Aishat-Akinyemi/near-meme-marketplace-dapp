@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Modal, Form, FloatingLabel } from "react-bootstrap";
 
-const AddProduct = ({ save }) => {
+const AddMeme = ({ save }) => {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
@@ -27,13 +27,13 @@ const AddProduct = ({ save }) => {
       </Button>
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>New Product</Modal.Title>
+          <Modal.Title>New Meme</Modal.Title>
         </Modal.Header>
         <Form>
           <Modal.Body>
             <FloatingLabel
               controlId="inputName"
-              label="Product name"
+              label="Meme name"
               className="mb-3"
             >
               <Form.Control
@@ -41,7 +41,7 @@ const AddProduct = ({ save }) => {
                 onChange={(e) => {
                   setName(e.target.value);
                 }}
-                placeholder="Enter name of product"
+                placeholder="Enter name of meme"
               />
             </FloatingLabel>
             <FloatingLabel
@@ -117,7 +117,7 @@ const AddProduct = ({ save }) => {
               handleClose();
             }}
           >
-            Save product
+            Save meme
           </Button>
         </Modal.Footer>
       </Modal>
@@ -125,8 +125,8 @@ const AddProduct = ({ save }) => {
   );
 };
 
-AddProduct.propTypes = {
+AddMeme.propTypes = {
   save: PropTypes.func.isRequired,
 };
 
-export default AddProduct;
+export default AddMeme;
