@@ -23,7 +23,7 @@ export class Meme {
         this.sold = this.sold + 1;
     }
     // 0 if upvote, 1 is downvote
-    public vote(voteType: i8): bool {
+    public vote(voteType: u8): bool {
         const senderAccount = context.sender;
         assert(!(this.down_votes.has(senderAccount)), "already voted");
         assert(!(this.up_votes.has(senderAccount)), "already voted");

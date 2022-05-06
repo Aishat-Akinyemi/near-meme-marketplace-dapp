@@ -64,6 +64,19 @@ export function getMemes(): Array<Meme> {
 }
 
 /**
+ * vote on a meme, 
+ */
+ export function voteMeme(memeId: string, voteType: u8) : bool {    
+    const meme = memesStorage.get(memeId);
+    //check if meme is null, in case meme is null we can't access its properties
+    if(meme == null){
+       return false;
+    } else {
+       return meme.vote(voteType);
+    } 
+}
+
+/**
  * returns the no of votes, downvotes in index[0], upvotes in index[1] on a meme
  */
 export function getMemeVotes(memeId: string) : Array<u32> | null {    
