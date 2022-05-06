@@ -1,47 +1,46 @@
-import { PersistentUnorderedMap, context, PersistentMap, u128 } from "near-sdk-as";
+import { PersistentUnorderedMap, context, PersistentSet, u128 } from "near-sdk-as";
 
-/**
- * This class represents a product that can be listed on a marketplace.
- * It contains basic properties that are needed to define a product.
- * The price of the product is of type u128 that allows storing it in yocto-NEAR, where `1 yocto = 1^-24`.
- * {@link nearBindgen} - it's a decorator that makes this class serializable so it can be persisted on the blockchain level. 
- */
 @nearBindgen
-export class Product {
+export class Meme {
     id: string;
-    name: string;
-    description: string;
-    image: string;
-    location: string;
+    metadata: string;
     price: u128;
     owner: string;
+    up_votes:  PersistentSet<string>;
+    down_votes: PersistentSet<string>;
     sold: u32;
-    public static fromPayload(payload: Product): Product {
-        const product = new Product();
-        product.id = payload.id;
-        product.name = payload.name;
-        product.description = payload.description;
-        product.image = payload.image;
-        product.location = payload.location;
-        product.price = payload.price;
-        product.owner = context.sender;
-        return product;
+    public static fromPayload(payload: Meme): Meme {
+        const meme = new Meme();
+        meme.id = payload.id;
+        meme.metadata = payload.metadata;               
+        meme.price = payload.price;
+        meme.owner = context.sender;
+        meme.up_votes = payload.up_votes;
+        meme.down_votes = payload.down_votes;
+        return meme;
     }
     public incrementSoldAmount(): void {
         this.sold = this.sold + 1;
     }
+    // 0 if upvote, 1 is downvote
+    public vote(voteType: u8): bool {
+        const senderAccount = context.sender;
+        assert(!(this.down_votes.has(senderAccount)), "already voted");
+        assert(!(this.up_votes.has(senderAccount)), "already voted");
+        assert((voteType ==0 || voteType ==1), "not a valid vote");
+        switch (voteType) {
+            case 0:
+                this.down_votes.add(senderAccount);
+                return true;
+                
+            case 1:
+                this.up_votes.add(senderAccount);
+                return true;
+        }
+        return false;
+    }
 }
 
-/**
- * `productsStorage` - it's a key-value datastructure that is used to store products by sellers.
- * The backbone of this datastructure is {@link PersistentUnorderedMap} - a facade in front of the NEAR's {@link Storage}.
- * For the sake of this contract we've chosen {@link PersistentUnorderedMap} as a storage for the next reasons:
- * - `set`, `get` and `delete` operations have a constant time complexity - O(1)
- * - keys are stored in the blockchain (which is opposite to {@link PersistentMap})
- * - provides an interface to return a range of values
- * 
- * Brakedown of the `PersistentUnorderedMap<string, Product>` datastructure:
- * - the key of `PersistentUnorderedMap` is a `productId`
- * - the value in this `PersistentUnorderedMap` is a product itself `Product` that is related to a given key (`productId`)
- */
-export const productsStorage = new PersistentUnorderedMap<string, Product>("LISTED_PRODUCTS");
+
+export const memesStorage = new PersistentUnorderedMap<string, Meme>("LISTED_MEMES");
+

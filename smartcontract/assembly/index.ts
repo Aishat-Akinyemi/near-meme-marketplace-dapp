@@ -1,60 +1,93 @@
-import { Product, productsStorage } from './model';
-import { context, ContractPromiseBatch } from "near-sdk-as";
+import { Meme, memesStorage } from './model';
+import { context, ContractPromiseBatch, PersistentSet } from "near-sdk-as";
 
 /**
  * 
  * This function changes the state of data in the blockchain. 
- * It is used to issue buy transactions when a product is purchased from a given seller (if the product is available)
+ * It is used to issue buy transactions when a meme is purchased from a given seller (if the meme is available)
  * 
- * @param productId - an identifier of a product that is the subject of purchase
+ * @param memeId - an identifier of a meme that is the subject of purchase
  */
-export function buyProduct(productId: string): void {
-    const product = getProduct(productId);
-    if (product == null) {
-        throw new Error("product not found");
+export function buyMeme(memeId: string): void {
+    const meme = getMeme(memeId);
+    if (meme == null) {
+        throw new Error("meme not found");
     }
-    if (product.price.toString() != context.attachedDeposit.toString()) {
-        throw new Error("attached deposit should be greater than the product's price");
+    if (meme.price.toString() != context.attachedDeposit.toString()) {
+        throw new Error("attached deposit should be greater than the meme's price");
     }
     /*
         `ContractPromiseBatch` is used here to create a transaction to transfer the money to the seller
         The amount of money to be used in the transaction is taken from `context.attachedDeposit` 
         which is defined by `--depositYocto=${AMOUNT}` parameter during the invocation 
     */
-    ContractPromiseBatch.create(product.owner).transfer(context.attachedDeposit);
-    product.incrementSoldAmount();
-    productsStorage.set(product.id, product);
+    ContractPromiseBatch.create(meme.owner).transfer(context.attachedDeposit);
+    meme.incrementSoldAmount();
+    memesStorage.set(meme.id, meme);
 }
 
 /**
  * 
- * @param product - a product to be added to the blockchain
+ * @param meme - a meme to be added to the blockchain
  */
-export function setProduct(product: Product): void {
-    let storedProduct = productsStorage.get(product.id);
-    if (storedProduct !== null) {
-        throw new Error(`a product with id=${product.id} already exists`);
+export function setMeme(meme: Meme): void {
+    let storedMeme = memesStorage.get(meme.id);
+    if (storedMeme !== null) {
+        throw new Error(`a meme with id=${meme.id} already exists`);
     }
-    productsStorage.set(product.id, Product.fromPayload(product));
+    const memeLength = memesStorage.length;
+    meme.up_votes = new PersistentSet<string>(`upvote${memeLength}`);
+    meme.down_votes = new PersistentSet<string>(`downvote${memeLength}`);    
+    memesStorage.set(meme.id, Meme.fromPayload(meme));
 }
 
 /**
  * 
- * A function that returns a single product for given owner and product id
+ * A function that returns a single meme for given owner and meme id
  * 
- * @param id - an identifier of a product to be returned
- * @returns a product for a given @param id
+ * @param id - an identifier of a meme to be returned
+ * @returns a meme for a given @param id
  */
-export function getProduct(id: string): Product | null {
-    return productsStorage.get(id);
+export function getMeme(id: string): Meme | null {
+    return memesStorage.get(id);
 }
 
 /**
  * 
- * A function that returns an array of products for all accounts
+ * A function that returns an array of memes for all accounts
  * 
- * @returns an array of objects that represent a product
+ * @returns an array of objects that represent a meme
  */
-export function getProducts(): Array<Product> {
-    return productsStorage.values();
+export function getMemes(): Array<Meme> {
+    return memesStorage.values();
+    
+}
+
+/**
+ * vote on a meme, 
+ */
+ export function voteMeme(memeId: string, voteType: u8) : bool {    
+    const meme = memesStorage.get(memeId);
+    //check if meme is null, in case meme is null we can't access its properties
+    if(meme == null){
+       return false;
+    } else {
+       return meme.vote(voteType);
+    } 
+}
+
+/**
+ * returns the no of votes, downvotes in index[0], upvotes in index[1] on a meme
+ */
+export function getMemeVotes(memeId: string) : Array<u32> | null {    
+    const meme = memesStorage.get(memeId);
+    //check if meme is null, in case meme is null we can't access its properties
+    if(meme == null){
+       return null;
+    } else {
+        let votes_length_array = new Array<u32>(2);
+        votes_length_array[0] = meme.down_votes.size;
+        votes_length_array[1] = meme.up_votes.size;
+        return votes_length_array;
+    } 
 }
