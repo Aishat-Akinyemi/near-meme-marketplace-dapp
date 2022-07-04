@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/near-meme-marketplace-dapp/static/css/main.a174681c.chunk.css",
-    "main.js": "/near-meme-marketplace-dapp/static/js/main.001ac1b5.chunk.js",
-    "main.js.map": "/near-meme-marketplace-dapp/static/js/main.001ac1b5.chunk.js.map",
+    "main.js": "/near-meme-marketplace-dapp/static/js/main.2d236779.chunk.js",
+    "main.js.map": "/near-meme-marketplace-dapp/static/js/main.2d236779.chunk.js.map",
     "runtime-main.js": "/near-meme-marketplace-dapp/static/js/runtime-main.036a610c.js",
     "runtime-main.js.map": "/near-meme-marketplace-dapp/static/js/runtime-main.036a610c.js.map",
     "static/css/2.c3812bb4.chunk.css": "/near-meme-marketplace-dapp/static/css/2.c3812bb4.chunk.css",
@@ -22,6 +22,6 @@
     "static/css/2.c3812bb4.chunk.css",
     "static/js/2.70019747.chunk.js",
     "static/css/main.a174681c.chunk.css",
-    "static/js/main.001ac1b5.chunk.js"
+    "static/js/main.2d236779.chunk.js"
   ]
 }
