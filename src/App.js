@@ -39,7 +39,7 @@ const App = function AppWrapper() {
             </Nav.Item>
           </Nav>
           <main>
-            <h2>Your one-stop marketplace for Trending Memes.</h2>
+            <h2>Your one-stop marketplace for Trending Memes. Buy and Vote your fav memes.</h2>
             <Memes />
           </main>
         </Container>
