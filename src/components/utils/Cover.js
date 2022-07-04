@@ -18,7 +18,7 @@ const Cover = ({ name, login, coverImg }) => {
           </div>
           <h1>{name}</h1>
           <p style={{ fontSize: "x-large", color: "aquamarine"}}
-          >Your one stop shop for Trending Memes</p>
+          >Your one stop marketplace for Trending Memes</p>
           <p>Please connect your wallet to continue.</p>
           <Button
             onClick={login}
